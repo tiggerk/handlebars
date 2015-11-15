@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="../jquery-1.11.2.min.js"></script>
+    <script src="../handlebars-v3.0.3.js"></script>
+</head>
+<body>
+
+<script id="entry-template" type="text/x-handlebars-template">
+
+    <!-- context가 자기 자신을 가리키기 때문에 아래와 같이 사용할 수 있다. -->
+    <div class="entry">
+        <h1>{{./title}}</h1>
+        <h2>{{author.name}}</h2>
+        <div class="body">
+            this/body : {{this/body}} <br/>
+            body : {{body}}
+        </div>
+    </div>
+
+    <div class="content">
+        {{#article}}
+            {{! 'this'는 article을 가리키기 때문에 article 하위에 title이 출력됨 }}
+            <h2>{{this.title}}</h2>
+
+            {{! "../"는 article의 부모인 context를 가리키고, context 아래에 "site.url"을 출력한다. }}
+            <h2>{{../site.url}}/article/{{id}} ----- {{title}}</h2>
+        {{/article}}
+    </div>
+
+</script>
+
+
+
+<script>
+
+    var source = $("#entry-template").html();
+
+    var template = Handlebars.compile(source);
+
+    var context = {
+        title: "My New Post",
+        author: {
+            id: 47,
+            name: "Author.name"
+        },
+
+        body: "This is my first post!",
+
+        site: {
+            title: "Google",
+            url: "http://google.com"
+        },
+
+        article: {
+            id: 1,
+            title: "article Google"
+        }
+    };
+
+
+    var html = template(context);
+
+    $(document.body).html(html);
+
+</script>
+
+
+</body>
+</html>

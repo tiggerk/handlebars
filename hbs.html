@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="../jquery-1.11.2.min.js"></script>
+    <script src="../handlebars-v3.0.3.js"></script>
+</head>
+<body>
+<script id="entry-template" type="text/x-handlebars-template">
+
+    <div class="entry">
+        <h1>{{title}}</h1>
+        <div class="body">
+            {{{body}}}
+        </div>
+    </div>
+
+</script>
+
+
+
+<script>
+    var source = $("#entry-template").html();
+
+    var template = Handlebars.compile(source);
+
+    var context = {title: "All about <p> Tags", body: "<p>This is a post about &lt;p&gt; tags</p>"};
+
+
+    var html = template(context);
+
+
+    $(document.body).html(html);
+
+
+
+
+</script>
+
+
+</body>
+</html>
